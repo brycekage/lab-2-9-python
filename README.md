@@ -1,6 +1,6 @@
 # Lab: doctests + continuous integration
 
-<img src="https://github.com/brycekage/lab-2-9-python/blob/master/.github/workflows/test.yaml" />
+<img src="https://github.com/brycekage/lab-2-9-python/blob/master/.github/workflows/test.yaml/badge.svg" />
 
 **Instructions:**
 
