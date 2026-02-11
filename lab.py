@@ -15,17 +15,16 @@ If you can't do these problems by yourself,
 you definitely won't be able to do the problems that AI can't solve that we will see later in the semester.
 '''
 
-
 ################################################################################
 # PART I:
 # These functions review the control flow and math operations
 ################################################################################
 
+
 def is_even(n):
     '''
     Return True if n is even and False if n is odd.
-
-    HINT: Use the modulus operator %
+    HINT: Use the modulus operator % 
 
     >>> is_even(0)
     True
@@ -41,11 +40,13 @@ def is_even(n):
     <class 'bool'>
     '''
 
+    return n % 2 == 0
+
 
 def is_odd(n):
     '''
-    Return True if n is odd and False if n is even.
-
+    Return True if n is odd and False if n is even. 
+    
     >>> is_odd(0)
     False
     >>> is_odd(1)
@@ -59,6 +60,9 @@ def is_odd(n):
     >>> type(is_odd(0))
     <class 'bool'>
     '''
+
+    return n % 2 == 1
+
 
 
 def absolute_value(n):
@@ -77,6 +81,12 @@ def absolute_value(n):
     >>> absolute_value(-5.5)
     5.5
     '''
+
+    if n >= 0:
+        return n
+    else:
+        return -n
+
 
 
 def max_num(a, b):
@@ -98,6 +108,11 @@ def max_num(a, b):
     <class 'int'>
     '''
 
+    if a >= b:
+        return a
+    else:
+        return b
+
 
 def max_num_4(a, b, c, d):
     '''
@@ -118,6 +133,14 @@ def max_num_4(a, b, c, d):
     10
     '''
 
+    if a > b and a > c and a > d:
+        return a
+    if b > a and b > c and b > d:
+        return b
+    if c > a and c > b and c > d:
+        return c
+    return d
+    
 
 def max_num_abs(a, b):
     '''
@@ -137,6 +160,19 @@ def max_num_abs(a, b):
     >>> type(max_num_abs(4, 4))
     <class 'int'>
     '''
+
+    if a >= 0:
+        x = a
+    if a < 0:
+        x = -a
+    if b >= 0:
+        y = b
+    if b < 0:
+        y =-b
+    if x>=y:
+        return a
+    if x<y:
+        return b
 
 
 def is_leap_year(n):
@@ -162,7 +198,11 @@ def is_leap_year(n):
     >>> is_leap_year(2400)
     True
     '''
-
+    if (n % 4 == 0 and n % 100 != 0) or (n % 400 == 0):
+        return True
+    else:
+        return False
+    
 
 def num_digits(n):
     '''
@@ -193,7 +233,14 @@ def num_digits(n):
     2
     >>> type(num_digits(4))
     <class 'int'>
+
     '''
+    total=1
+    n = abs(n)
+    while n >= 10:
+        total+=1
+        n//= 10
+    return total
 
 
 def factorial(n):
@@ -218,6 +265,10 @@ def factorial(n):
     >>> factorial(100)
     93326215443944152681699238856266700490715968264381621468592963895217599993229915608941463976156518286253697920827223758251185210916864000000000000000000000000
     '''
+    result = 1
+    for i in range(1, n + 1):
+        result *= i
+    return result
 
 
 def is_prime(n):
@@ -242,6 +293,12 @@ def is_prime(n):
     >>> is_prime(99)
     False
     '''
+    if n <= 1:
+        return False
+    for number in range(2,n-1):
+        if n % number == 0:
+            return False
+    return True
 
 
 def is_perfect_square(n):
@@ -269,6 +326,14 @@ def is_perfect_square(n):
     >>> is_perfect_square(144)
     True
     '''
+    if n < 0:
+        return False
+
+    for i in range(0, n + 1):
+        if i * i == n:
+            return True
+
+    return False
 
 
 def fibonacci(n):
@@ -312,7 +377,20 @@ def fibonacci(n):
     >>> type(fibonacci(4))
     <class 'int'>
     '''
+    if n == 0:
+        return 0
+    elif n == 1:
+        return 1
 
+    f0 = 0
+    f1 = 1
+
+    for _ in range(2, n + 1):
+        fn = f0 + f1
+        f0 = f1
+        f1 = fn
+
+    return f1
 
 ################################################################################
 # PART II:
@@ -341,6 +419,15 @@ def cigar_party(cigars, is_weekend):
     >>> cigar_party(40, False)
     True
     '''
+    if cigars < 40:
+        return False
+    if cigars > 60 and is_weekend == False:
+        return False
+    if cigars >= 40 and cigars <= 60 and is_weekend == False:
+        return True
+    if cigars >= 60 and is_weekend == True:
+        return True
+    
 
 
 def speeding_fine(speed, birthday):
@@ -377,6 +464,15 @@ def speeding_fine(speed, birthday):
     >>> speeding_fine(90, False)
     2000
     '''
+    if birthday:
+        speed -= 5
+
+    if speed <= 60:
+        return 0
+    elif speed <= 80:
+        return 100
+    else:
+        return 2000
 
 
 def near_ten(x):
@@ -398,6 +494,7 @@ def near_ten(x):
     >>> near_ten(-42)
     True
     '''
+    return x % 10 <= 2 or x % 10 >= 8
 
 
 def love6(a, b):
@@ -425,6 +522,7 @@ def love6(a, b):
     >>> love6(123, 6)
     True
     '''
+    return a == 6 or b == 6 or a + b == 6 or abs(a - b) == 6
 
 
 def funny_sum(a, b, c):
@@ -451,6 +549,14 @@ def funny_sum(a, b, c):
     >>> funny_sum(5, 2, 6)
     13
     '''
+    total = 0
+    if a != b and a != c:
+        total += a
+    if b != a and b != c:
+        total += b
+    if c != a and c != b:
+        total += c
+    return total
 
 
 def median(a, b, c):
@@ -470,6 +576,7 @@ def median(a, b, c):
     >>> median(-3, -2, 7)
     -2
     '''
+    return sorted([a, b, c])[1]
 
 
 def sum_between(a, b):
@@ -495,6 +602,12 @@ def sum_between(a, b):
     >>> sum_between(0, 123456)
     7620753696
     '''
+    sum = 0
+    for i in range(min(a, b), max(a, b) + 1):
+        sum += i
+    return sum
+
+
 
 ################################################################################
 # PART III:
@@ -518,6 +631,9 @@ def largest(xs):
     10
     >>> largest([])
     '''
+    if not xs:
+        return None 
+    return max(xs)
 
 
 def last_element(xs):
@@ -536,6 +652,9 @@ def last_element(xs):
     1
     >>> last_element([])
     '''
+    if not xs:
+        return None
+    return xs[-1]
 
 
 def last_element_list(xs):
@@ -554,6 +673,9 @@ def last_element_list(xs):
     >>> last_element_list([])
     []
     '''
+    if not xs:
+        return []
+    return [xs[-1]]
 
 
 def first_three(xs):
@@ -574,6 +696,7 @@ def first_three(xs):
     >>> first_three([])
     []
     '''
+    return xs[:3]
 
 
 def last_three(xs):
@@ -591,6 +714,7 @@ def last_three(xs):
     >>> last_three([0,1])
     [0, 1]
     '''
+    return xs[-3:]
 
 
 def largest3(xs):
@@ -608,6 +732,7 @@ def largest3(xs):
     >>> largest3([])
     []
     '''
+    return sorted(sorted(xs, reverse=True)[:3])
 
 
 def filter_odd(xs):
@@ -626,6 +751,11 @@ def filter_odd(xs):
     >>> filter_odd([20,13,4,16,8,19,10])
     [20, 4, 16, 8, 10]
     '''
+    listofevens = []
+    for i in xs:
+        if i % 2 == 0:        
+            listofevens.append(i)
+    return listofevens
 
 
 def filter_even(xs):
@@ -644,6 +774,11 @@ def filter_even(xs):
     >>> filter_even([20,13,4,16,8,19,10])
     [13, 19]
     '''
+    listofodds = []
+    for i in xs:
+        if i % 2 == 1:        
+            listofodds.append(i)
+    return listofodds
 
 
 def bigger_than_10(xs):
@@ -659,6 +794,11 @@ def bigger_than_10(xs):
     >>> bigger_than_10([4,5,6,11])
     1
     '''
+    counter=0
+    for i in xs:
+        if i > 10:
+            counter+=1
+    return counter
 
 
 def second_largest(xs):
@@ -678,6 +818,10 @@ def second_largest(xs):
     >>> second_largest([10])
     >>> second_largest([])
     '''
+    if len(xs) < 2:
+        return None
+    xs = sorted(xs)
+    return xs[-2]
 
 
 def has_index_at_value(xs):
@@ -711,6 +855,10 @@ def has_index_at_value(xs):
     >>> has_index_at_value([2, 9, 5, 4, 19, 4, 4, 4, 4, 4])
     False
     '''
+    for i in range(len(xs)):
+        if xs[i] == i:
+            return True
+    return False
 
 
 def nested_filter_odd(xss):
@@ -726,6 +874,12 @@ def nested_filter_odd(xss):
     >>> nested_filter_odd([[20],[13,4,16,8,19],[10], [15, 13, 1]])
     [20, 4, 16, 8, 10]
     '''
+    evenlist=[]
+    for xs in xss:
+        for i in xs:
+            if i % 2 == 0:
+                evenlist.append(i)
+    return evenlist
 
 
 def flatten(xss):
@@ -741,6 +895,11 @@ def flatten(xss):
     >>> flatten([[10]])
     [10]
     '''
+    newlist=[]
+    for xs in xss:
+        for i in xs:
+            newlist.append(i)
+    return newlist
 
 
 def filter_flatten(xss):
@@ -766,3 +925,7 @@ def filter_flatten(xss):
     >>> filter_flatten([[10]])
     [10]
     '''
+    result=[]
+    for i in range(len(xss)):
+        result.append(xss[i][i])
+    return result
